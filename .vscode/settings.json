@@ -1,3 +1,16 @@
 {
-  "sqltools.connections": []
+  "sqltools.connections": [
+    {
+      "pgOptions": {
+        "ssl": {
+          "rejectUnauthorized": true
+        }
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "driver": "PostgreSQL",
+      "connectString": "postgresql://basseycse340_new:IVDpfG5W6b9Ezu9vMuJ44ejfQ2D2Tcpr@dpg-d0mt2cemcj7s739ke43g-a.ohio-postgres.render.com/basseycse340_new",
+      "name": "render.com"
+    }
+  ]
 }

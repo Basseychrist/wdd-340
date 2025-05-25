@@ -1,0 +1,9 @@
+<!-- Section 1: Content Heading -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else { res.redirect('/') } %> <%# messages() %>
+
+<!-- Section 2: Main Content -->
+<%- grid %>
+
+
