@@ -9,11 +9,11 @@ const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const env = require("dotenv").config();
 const app = express();
-const inventoryRoute = require("./routes/inventoryRoute")
+const inventoryRoute = require("./routes/inventoryRoute");
 const static = require("./routes/static");
 const utilities = require("./utilities");
 const baseController = require("./controllers/baseController");
-
+const errorRoute = require("./routes/errorRoute");
 
 /* ***********************
  * View Engine and Templates
@@ -28,8 +28,8 @@ app.set("layout", "./layouts/layout"); // not at views root
 app.use(static);
 app.get("/", baseController.buildHome);
 // Inventory routes
-app.use("/inv", inventoryRoute)
-
+app.use("/inv", inventoryRoute);
+app.use("/", errorRoute);
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
@@ -47,6 +47,16 @@ app.use(async (err, req, res, next) => {
     title: err.status || "Server Error",
     message: err.message,
     nav,
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500);
+  res.render("errors/error", {
+    message: err.message,
+    error: process.env.NODE_ENV === "development" ? err : {},
+    title: "Server Error",
   });
 });
 
