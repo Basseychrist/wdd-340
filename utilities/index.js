@@ -97,3 +97,16 @@ Util.buildDetailView = function (vehicle) {
   </section>`;
   return html;
 };
+
+function handleErrors(fn) {
+  return function (req, res, next) {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+}
+
+module.exports = {
+  getNav: Util.getNav,
+  buildClassificationGrid: Util.buildClassificationGrid,
+  buildDetailView: Util.buildDetailView,
+  handleErrors,
+};

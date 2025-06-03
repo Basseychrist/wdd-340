@@ -9,6 +9,10 @@ body {
   font-size: 16px; /* Default font size */
   color: black; /* Default text color */
   line-height: 1.5; /* Line height for better readability */
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 0;
 }
 
 * {
@@ -142,16 +146,18 @@ nav ul li a {
 
 h1 {
   text-align: center;
+  margin-top: 40px;
+  color: #222;
   font-size: 2.5em;
-  margin-top: 20px;
 }
+
 .error-message {
   text-align: center;
   font-size: 1.2em;
   color: #555;
 }
 .error-message a {
-  color: #007bff;
+  color: green;
   text-decoration: none;
 }
 .error-message a:hover {
@@ -265,11 +271,17 @@ h1 {
 
 footer {
   background-color: black;
-  color: white;
   text-align: center;
   padding: 10px;
   margin: 20px auto;
   width: 80%;
+}
+
+
+footer p {
+  color: white;
+  font-size: 1rem;
+  margin: 0;
 }
 
 .button {
@@ -355,9 +367,11 @@ footer {
   font-size: 1.1rem;
 }
 
-#hero-header .notice {
-  color: red;
+.notice {
+  color: green;
   margin-left: 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
 @media (max-width: 700px) {
@@ -366,3 +380,154 @@ footer {
     gap: 1rem;
   }
 }
+
+#login-form {
+  background: #fff;
+  max-width: 400px;
+  margin: 40px auto 20px auto;
+  padding: 32px 28px 24px 28px;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+#login-form label {
+  font-weight: 500;
+  margin-bottom: 6px;
+ 
+}
+
+#login-form input[type="email"],
+#login-form input[type="password"] {
+  padding: 10px 12px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+#login-form input[type="email"]:focus,
+#login-form input[type="password"]:focus {
+  border: 1.5px solid #0077cc;
+  outline: none;
+}
+
+#login-form button {
+  background: #0077cc;
+  color: #fff;
+  border: none;
+  padding: 12px 0;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+#login-form button:hover {
+  background: #005fa3;
+}
+
+p {
+  text-align: center;
+  margin-top: 18px;
+  color: #444;
+}
+
+p a {
+  color: green;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+#register-form {
+  background: #fff;
+  max-width: 420px;
+  margin: 40px auto 20px auto;
+  padding: 32px 28px 24px 28px;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+#register-form label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+#register-form input[type="text"],
+#register-form input[type="email"],
+#register-form input[type="password"] {
+  padding: 10px 12px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+#register-form input:focus {
+  border: 1.5px solid #0077cc;
+  outline: none;
+}
+
+#register-form button {
+  background: #0077cc;
+  color: #fff;
+  border: none;
+  padding: 12px 0;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+#register-form button:hover {
+  background: #005fa3;
+}
+
+#register-form small {
+  color: #888;
+  font-size: 0.95em;
+}
+
+span[style*="color: red"] {
+  font-weight: bold;
+}
+
+/* .alert,
+.message {
+  color: #d32f2f;
+  background: #ffeaea;
+  border: 1px solid #f5c2c7;
+  border-radius: 5px;
+  padding: 10px 16px;
+  margin: 20px auto 0 auto;
+  max-width: 420px;
+  text-align: center;
+}
+
+/* Success message styling */
+/* .success-message {
+  background-color: #e6ffed;
+  color: #207245;
+  border: 1px solid #b7ebc6;
+  padding: 16px 24px;
+  border-radius: 6px;
+  margin: 20px auto;
+  max-width: 420px;
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: 500;
+} */ */
