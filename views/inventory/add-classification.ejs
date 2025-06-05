@@ -1,0 +1,37 @@
+<%- include('../partials/header') %>
+<h1>Add New Classification</h1>
+<% if (message && message.length) { %>
+<div class="flash-message"><%= message %></div>
+<% } %> <% if (errors) { errors.forEach(e => { %>
+<div class="error"><%= e.msg %></div>
+<% }) } %>
+<form
+  id="addClassificationForm"
+  action="/inv/add-classification"
+  method="post"
+  novalidate
+>
+  <label for="classification_name"
+    >Classification Name (no spaces or special characters):</label
+  >
+  <input
+    type="text"
+    id="classification_name"
+    name="classification_name"
+    pattern="^[A-Za-z0-9]+$"
+    required>
+  <button type="submit">Add Classification</button>
+</form>
+<script>
+  document
+    .getElementById("addClassificationForm")
+    .addEventListener("submit", function (e) {
+      const val = document.getElementById("classification_name").value;
+      if (!/^[A-Za-z0-9]+$/.test(val)) {
+        e.preventDefault();
+        alert(
+          "Classification name must not contain spaces or special characters."
+        );
+      }
+    });
+</script>
