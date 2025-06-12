@@ -35,7 +35,39 @@ router.post(
   invController.addInventory
 );
 
+// Show delete classification confirmation page
+router.get(
+  "/delete-classification/:classification_id",
+  invController.buildDeleteClassificationView
+);
+
 // Handle delete classification POST
-router.post("/delete-classification", invController.deleteClassification);
+router.post(
+  "/delete-classification/:classification_id",
+  invController.deleteClassification
+);
+
+// Example for routes/inventoryRoute.js
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON)
+);
+
+// Edit inventory item view route
+router.get("/edit/:inv_id", invController.buildEditInventoryView);
+
+// Handle update inventory POST
+router.post(
+  "/update/",
+  utilities.inventoryRules(), // validation rules
+  utilities.checkUpdateData, // validation handler
+  utilities.handleErrors(invController.updateInventory)
+);
+
+// Show delete inventory confirmation view
+router.get("/delete/:inv_id", invController.buildDeleteInventoryView);
+
+// Handle delete inventory POST
+router.post("/delete/:inv_id", invController.deleteInventory);
 
 module.exports = router;

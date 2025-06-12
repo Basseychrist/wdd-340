@@ -1,30 +1,37 @@
-<h1>Inventory Management</h1>
-<% if (message && message.length) { %>
-<div class="flash-message"><%= message %></div>
-<% } %>
-<div class="management-links">
-  <a href="/inv/add-classification">Add New Classification</a>
-  <a href="/inv/add-inventory">Add New Inventory Item</a>
-</div>
+<main>
+  <h1>Inventory Management</h1>
 
-<h2 id="classification-h2">Current Classifications</h2>
-<ul class="classification-list">
-  <% classifications.forEach(function(classification) { %>
+  <div class="management-links">
+    <a href="/inv/add-classification">Add New Classification</a>
+    <a href="/inv/add-inventory">Add New Vehicle</a>
+  </div>
+
+  <h2 id="manage-inv">Manage Inventory</h2>
+  <p>
+    Select a classification from the list to see the items belonging to the
+    classification.
+  </p>
+
+  <!-- EJS code block to display the classification select list -->
+  <%- classificationSelect %>
+
+  <!-- Empty table for inventory items -->
+  <table id="inventoryDisplay"></table>
+
+  <noscript>JavaScript must be enabled to use this page.</noscript>
+</main>
+
+<!-- Link to your inventory.js file -->
+<script src="/js/inventory.js"></script>
+<ul class="delete-classifications-list">
+  <h2>Delete Classifications</h2>
+  <% if (classifications && classifications.length) { %> <%
+  classifications.forEach(function(classification) { %>
   <li>
-    <span><%= classification.classification_name %></span>
-    <form
-      action="/inv/delete-classification"
-      method="post"
-      class="delete-form"
-      onsubmit="return confirm('Are you sure you want to delete this classification?');"
+    <%= classification.classification_name %>
+    <a href="/inv/delete-classification/<%= classification.classification_id %>"
+      >Delete</a
     >
-      <input
-        type="hidden"
-        name="classification_id"
-        value="<%= classification.classification_id %>"
-      >
-      <button type="submit" class="delete-btn">Delete</button>
-    </form>
   </li>
-  <% }) %>
+  <% }) %> <% } %>
 </ul>

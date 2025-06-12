@@ -5,6 +5,7 @@
 /* ***********************
  * Require Statements
  *************************/
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const pool = require("./database/");
 const express = require("express");
@@ -14,7 +15,7 @@ const bodyParser = require("body-parser"); // <-- Add this line
 const app = express();
 const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute"); // <-- Add this line
-const static = require("./routes/static");
+// const static = require("./routes/static");
 const utilities = require("./utilities");
 const baseController = require("./controllers/baseController");
 const errorRoute = require("./routes/errorRoute");
@@ -35,12 +36,9 @@ app.use(
   })
 );
 
-
 // Body Parser Middleware
 app.use(bodyParser.json()); // Parse JSON bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
-
 
 // Express Messages Middleware
 app.use(require("connect-flash")());
@@ -48,6 +46,12 @@ app.use(function (req, res, next) {
   res.locals.messages = require("express-messages")(req, res);
   next();
 });
+
+app.use(cookieParser());
+app.use(utilities.checkJWTToken);
+
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 /* ***********************
  * View Engine and Templates
@@ -59,7 +63,8 @@ app.set("layout", "./layouts/layout"); // not at views root
 /* ***********************
  * Routes
  *************************/
-app.use(static);
+app.use(express.static("public"));
+// app.use(static);
 app.get("/", baseController.buildHome);
 // Inventory routes
 app.use("/inv", inventoryRoute);

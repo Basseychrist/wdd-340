@@ -90,14 +90,81 @@ invModel.addInventory = async function (data) {
 };
 
 /* ***************************
- *  Delete a classification
+ *  Update Inventory Data
  * ************************** */
+async function updateInventory(
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_year,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  try {
+    const sql =
+      "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *";
+    const data = await pool.query(sql, [
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id,
+      inv_id,
+    ]);
+    return data.rows[0];
+  } catch (error) {
+    console.error("model error: " + error);
+  }
+}
+
+invModel.updateInventory = updateInventory;
+
+/* ***************************
+ *  Delete Inventory Item
+ * ************************** */
+invModel.deleteInventory = async function (inv_id) {
+  try {
+    const sql = "DELETE FROM public.inventory WHERE inv_id = $1";
+    const result = await pool.query(sql, [inv_id]);
+    return result.rowCount > 0;
+  } catch (error) {
+    console.error("Delete error: " + error);
+    return false;
+  }
+};
+
+// Get a classification by ID
+invModel.getClassificationById = async function (classification_id) {
+  try {
+    const sql =
+      "SELECT * FROM public.classification WHERE classification_id = $1";
+    const data = await pool.query(sql, [classification_id]);
+    return data.rows[0];
+  } catch (error) {
+    console.error("model error: " + error);
+    return null;
+  }
+};
+
+// Delete a classification by ID
 invModel.deleteClassification = async function (classification_id) {
   try {
-    const sql = "DELETE FROM classification WHERE classification_id = $1";
+    const sql =
+      "DELETE FROM public.classification WHERE classification_id = $1";
     const result = await pool.query(sql, [classification_id]);
-    return result.rowCount === 1;
+    return result.rowCount > 0;
   } catch (error) {
+    console.error("model error: " + error);
     return false;
   }
 };

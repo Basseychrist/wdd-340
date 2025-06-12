@@ -1,0 +1,14 @@
+<div class="delete-confirm-container">
+  <h1>Delete Classification</h1>
+  <p>
+    Are you sure you want to delete the classification
+    <strong><%= classification.classification_name %></strong>?
+  </p>
+  <form
+    action="/inv/delete-classification/<%= classification_id %>"
+    method="post"
+  >
+    <button type="submit">Yes, Delete</button>
+    <a href="/inv/">Cancel</a>
+  </form>
+</div>

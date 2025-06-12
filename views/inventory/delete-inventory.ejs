@@ -1,0 +1,11 @@
+<div class="delete-confirm-container">
+  <h1><%= title %></h1>
+  <p>
+    Are you sure you want to delete
+    <strong><%= itemData.inv_make %> <%= itemData.inv_model %></strong>?
+  </p>
+  <form action="/inv/delete/<%= inv_id %>" method="post">
+    <button type="submit">Yes, Delete</button>
+    <a href="/inv/">Cancel</a>
+  </form>
+</div>

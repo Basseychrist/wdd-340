@@ -535,7 +535,7 @@ span[style*="color: red"] {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin: 32px 0;
+  margin: 32px 0 18px 0;
 }
 
 .management-links a {
@@ -546,6 +546,7 @@ span[style*="color: red"] {
   border-radius: 6px;
   text-decoration: none;
   font-weight: 500;
+  font-size: 1.08em;
   transition: background 0.2s;
 }
 
@@ -675,7 +676,7 @@ form#addClassificationForm button[type="submit"] {
 }
 
 form#addClassificationForm button[type="submit"]:hover {
-  background:grey;
+  background: grey;
 }
 
 /* Classification list styles */
@@ -731,4 +732,270 @@ form#addClassificationForm button[type="submit"]:hover {
 
 .delete-btn:hover {
   background: #c0392b;
+}
+
+/* Inventory Management View Styles */
+.inventory-management-container {
+  background: #fff;
+  max-width: 900px;
+  margin: 40px auto 30px auto;
+  padding: 32px 28px 24px 28px;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(44, 62, 80, 0.1);
+}
+
+.inventory-management-container h2,
+#manage-inv {
+  text-align: center;
+  margin-bottom: 12px;
+  color: #222;
+  font-size: 2em;
+}
+
+.inventory-management-container p {
+  text-align: center;
+  color: #555;
+  margin-bottom: 18px;
+}
+
+#classificationList {
+  display: block;
+  margin: 0 auto 24px auto;
+  padding: 10px 14px;
+  font-size: 1.1em;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  background: #f9fbfc;
+  width: 60%;
+  max-width: 350px;
+  transition: border 0.2s;
+}
+
+#classificationList:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto 18px auto;
+  background: #fafbfc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+}
+
+#inventoryDisplay thead {
+  background: #222;
+  color: #fff;
+}
+
+#inventoryDisplay th,
+#inventoryDisplay td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #e1e8ed;
+  font-size: 1.08em;
+}
+
+#inventoryDisplay tr:last-child td {
+  border-bottom: none;
+}
+
+#inventoryDisplay a {
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+#inventoryDisplay a:hover {
+  background: #eaf6ff;
+  color: #005fa3;
+}
+
+/* Example CSS for Edit Inventory Item form */
+form#updateForm {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+form#updateForm label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+form#updateForm input[type="text"],
+form#updateForm input[type="number"],
+form#updateForm textarea,
+form#updateForm select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #f9f9f9;
+  transition: border-color 0.2s;
+}
+
+form#updateForm input:focus,
+form#updateForm textarea:focus,
+form#updateForm select:focus {
+  border-color: #0078d7;
+  outline: none;
+}
+
+form#updateForm button[type="submit"] {
+  background: #0078d7;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 0;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+form#updateForm button[type="submit"]:disabled {
+  background: #bbb;
+  cursor: not-allowed;
+}
+
+.flash-message,
+.error {
+  padding: 0.7rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.flash-message {
+  background: #e6f7e6;
+  color: #267326;
+  border: 1px solid #b6e6b6;
+}
+
+.error {
+  background: #ffeaea;
+  color: #b30000;
+  border: 1px solid #ffb3b3;
+}
+
+/* Delete Inventory Confirmation Styles */
+.delete-confirm-container {
+  max-width: 420px;
+  margin: 3rem auto;
+  padding: 2rem 2.5rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.delete-confirm-container h1 {
+  color: #b30000;
+  margin-bottom: 1.2rem;
+  font-size: 2rem;
+}
+
+.delete-confirm-container p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.delete-confirm-container strong {
+  color: #222;
+}
+
+.delete-confirm-container form {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.delete-confirm-container button[type="submit"] {
+  background: #b30000;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.delete-confirm-container button[type="submit"]:hover {
+  background: #ff3333;
+}
+
+.delete-confirm-container a {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  background: #eee;
+  color: #333;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.delete-confirm-container a:hover {
+  background: #ccc;
+}
+
+/* Delete Classifications List Styles */
+ul.delete-classifications-list {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  list-style: none;
+}
+
+ul.delete-classifications-list h2 {
+  margin-top: 0;
+  color: #b30000;
+  text-align: center;
+}
+
+ul.delete-classifications-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1.08rem;
+}
+
+ul.delete-classifications-list li:last-child {
+  border-bottom: none;
+}
+
+ul.delete-classifications-list a {
+  background: #b30000;
+  color: #fff;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+ul.delete-classifications-list a:hover {
+  background: #ff3333;
 }

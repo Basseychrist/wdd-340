@@ -4,6 +4,8 @@ const router = express.Router();
 const utilities = require("../utilities");
 const accountController = require("../controllers/accountController");
 
+console.log("accountController.buildAccount:", accountController.buildAccount);
+
 /* ****************************************
  *  Deliver login view
  * *************************************** */
@@ -19,7 +21,11 @@ async function buildLogin(req, res, next) {
 router.get("/login", utilities.handleErrors(buildLogin));
 
 // GET / (My Account main page)
-router.get("/account", utilities.handleErrors(accountController.buildAccount));
+router.get(
+  "/",
+  utilities.checkLogin, // Ensure user is logged in
+  utilities.handleErrors(accountController.buildAccount)
+);
 
 // GET /register (Deliver registration view)
 router.get(
@@ -33,6 +39,14 @@ router.post(
   regValidate.registationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
+);
+
+// Process the login request
+router.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData, // <-- CORRECT
+  utilities.handleErrors(accountController.accountLogin)
 );
 
 // Export the router

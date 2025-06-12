@@ -1,4 +1,6 @@
 // const invModel = require("../models/inventory-model");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const { body, validationResult } = require("express-validator");
 const Util = {};
 
@@ -124,6 +126,42 @@ function handleErrors(fn) {
   };
 }
 
+/* ****************************************
+ * Middleware to check token validity
+ **************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
+};
+
 module.exports = {
   getNav: Util.getNav,
   buildClassificationGrid: Util.buildClassificationGrid,
@@ -153,7 +191,7 @@ module.exports = {
   },
   inventoryRules: () => [
     body("classification_id")
-      .isInt()
+      .isInt({ min: 1 })
       .withMessage("Classification is required."),
     body("inv_make").trim().notEmpty().withMessage("Make is required."),
     body("inv_model").trim().notEmpty().withMessage("Model is required."),
@@ -190,5 +228,28 @@ module.exports = {
     }
     next();
   },
+  checkUpdateData: async (req, res, next) => {
+    const { validationResult } = require("express-validator");
+    const errors = validationResult(req);
+    const inv_id = req.body.inv_id;
+    if (!errors.isEmpty()) {
+      const classificationList = await module.exports.buildClassificationList(
+        req.body.classification_id
+      );
+      const nav = await module.exports.getNav();
+      return res.render("inventory/edit-inventory", {
+        title: "Edit Inventory Item",
+        nav,
+        classificationList,
+        errors: errors.array(),
+        message: null, // <-- always include this!
+        sticky: req.body,
+        inv_id: inv_id,
+      });
+    }
+    next();
+  },
   buildClassificationList,
+  checkLogin: Util.checkLogin,
+  checkJWTToken: Util.checkJWTToken, // <-- Add this line
 };

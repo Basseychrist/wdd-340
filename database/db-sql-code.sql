@@ -254,3 +254,11 @@ WHERE inv_make = 'GM' AND inv_model = 'Hummer';
 UPDATE inventory
 SET inv_image = REGEXP_REPLACE(inv_image, '^(.*/)', '\1vehicles/', 1),
     inv_thumbnail = REGEXP_REPLACE(inv_thumbnail, '^(.*/)', '\1vehicles/', 1);
+
+DELETE FROM account
+WHERE account_email IN (
+  'happy@340.edu',
+  'manager@340.edu',
+  'basic@340.edu'
+);
+
