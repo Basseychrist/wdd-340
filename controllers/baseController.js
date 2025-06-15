@@ -1,10 +1,13 @@
-const utilities = require("../utilities/")
-const baseController = {}
+const utilities = require("../utilities/");
+const baseController = {};
 
-baseController.buildHome = async function(req, res){
-  const nav = await utilities.getNav()
-  req.flash("notice", "This is a flash message.")
-  res.render("index", {title: "Home", nav})
-}
+baseController.buildHome = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  res.render("index", {
+    title: "Home",
+    nav,
+    // No need to pass messages if using express-messages middleware
+  });
+};
 
-module.exports = baseController
+module.exports = baseController;

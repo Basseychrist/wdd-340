@@ -4,9 +4,28 @@
   </span>
 
   <div id="acount">
-    <a href="/account/login" title="user profile">
+    <a href="/account" title="user profile">
       <span>MY</span>
       <span>ACCOUNT</span>
     </a>
   </div>
 </header>
+
+<nav>
+  <ul>
+    <% if (user) { %>
+    <li>
+      <a href="/account">
+        Welcome <% if (user.account_type) { %> <%=
+        user.account_type.charAt(0).toUpperCase() + user.account_type.slice(1)
+        %> <% } else { %> User <% } %> <% if (user.account_firstname) { %> , <%=
+        user.account_firstname %> <% } %>
+      </a>
+    </li>
+    <li><a href="/account/logout">Logout</a></li>
+    <% } else { %>
+    <li><a href="/account/login">Login</a></li>
+    <% } %>
+  </ul>
+</nav>
+

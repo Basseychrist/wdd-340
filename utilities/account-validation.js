@@ -1,5 +1,7 @@
 const utilities = require(".");
 const { body, validationResult } = require("express-validator");
+const accountModel = require("../models/accountModel");
+
 const validate = {}; /*  **********************************
  
   
@@ -110,10 +112,92 @@ validate.checkLoginData = async (req, res, next) => {
   next();
 };
 
+const updateAccountRules = () => [
+  body("account_firstname")
+    .trim()
+    .notEmpty()
+    .withMessage("First name is required."),
+  body("account_lastname")
+    .trim()
+    .notEmpty()
+    .withMessage("Last name is required."),
+  body("account_email")
+    .trim()
+    .isEmail()
+    .withMessage("A valid email is required.")
+    .normalizeEmail(),
+];
+
+const checkUpdateAccountData = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (req.body.account_email !== req.session.user.account_email) {
+    const existing = await accountModel.getAccountByEmail(
+      req.body.account_email
+    );
+    if (existing) {
+      errors.errors.push({ msg: "Email already exists." });
+    }
+  }
+  if (!errors.isEmpty()) {
+    req.flash(
+      "error",
+      errors.array().map((e) => e.msg)
+    );
+    let nav = await utilities.getNav(); // <-- Add this line
+    return res.render("account/update-account", {
+      title: "Update Account",
+      user: req.session.user,
+      account_firstname: req.body.account_firstname,
+      account_lastname: req.body.account_lastname,
+      account_email: req.body.account_email,
+      errors: errors.array(),
+      message: [],
+      nav, // <-- Add this line
+    });
+  }
+  next();
+};
+
+const passwordRules = () => [
+  body("account_password")
+    .trim()
+    .isLength({ min: 12 })
+    .withMessage("Password must be at least 12 characters.")
+    .matches(/[A-Z]/)
+    .withMessage("Password must contain an uppercase letter.")
+    .matches(/\d/)
+    .withMessage("Password must contain a number.")
+    .matches(/[!@#$%^&*]/)
+    .withMessage("Password must contain a special character."),
+];
+
+const checkPasswordData = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    req.flash(
+      "error",
+      errors.array().map((e) => e.msg)
+    );
+    let nav = await utilities.getNav(); // <-- Add this line
+    return res.render("account/update-account", {
+      title: "Update Account",
+      user: req.session.user,
+      errors: errors.array(),
+      message: [],
+      nav, // <-- Add this line
+    });
+  }
+  next();
+};
+
 //export default validate and loginRules
 module.exports = {
   loginRules: validate.loginRules,
   registationRules: validate.registationRules,
   checkRegData: validate.checkRegData,
   checkLoginData: validate.checkLoginData,
+  updateAccountRules,
+  checkUpdateAccountData,
+  passwordRules,
+  checkPasswordData,
 };

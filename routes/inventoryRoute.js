@@ -3,6 +3,7 @@ const express = require("express");
 const router = new express.Router();
 const invController = require("../controllers/invController");
 const utilities = require("../utilities");
+const accountTypeCheck = require("../middleware/accountTypeCheck"); // Import from middleware
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
@@ -14,7 +15,11 @@ router.get("/detail/:inv_id", invController.buildDetailView);
 router.get("/", invController.buildManagementView);
 
 // Show add classification form
-router.get("/add-classification", invController.buildAddClassification);
+router.get(
+  "/add-classification",
+  accountTypeCheck,
+  invController.buildAddClassification
+);
 
 // Handle add classification POST
 router.post(

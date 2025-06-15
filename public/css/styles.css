@@ -999,3 +999,148 @@ ul.delete-classifications-list a {
 ul.delete-classifications-list a:hover {
   background: #ff3333;
 }
+
+/* General container */
+.account-container {
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.1);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* --- Update Account Information Page Styles --- */
+
+body {
+  background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+  min-height: 100vh;
+}
+
+/* Heading */
+.account-container h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.welcome-message, .inventory-management
+{
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+}
+
+/* Form card style */
+.account-container form {
+  background: #f9fbfc;
+  border-radius: 8px;
+  box-shadow: 0 1px 8px rgba(44, 62, 80, 0.07);
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+/* Label style */
+.account-container label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #34495e;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Input style */
+.account-container input[type="text"],
+.account-container input[type="email"],
+.account-container input[type="password"] {
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 1.2rem;
+  border: 1.5px solid #bfc9d1;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f6fafd;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.account-container input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px #e0eafc;
+  outline: none;
+}
+
+/* Button style */
+.account-container button,
+.account-container input[type="submit"] {
+  width: 100%;
+  padding: 0.8rem;
+  background: linear-gradient(90deg, #3498db 60%, #6dd5fa 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+  margin-top: 0.5rem;
+}
+
+.account-container button:hover,
+.account-container input[type="submit"]:hover {
+  background: linear-gradient(90deg, #217dbb 60%, #3498db 100%);
+  box-shadow: 0 4px 16px rgba(52, 152, 219, 0.15);
+}
+
+/* Flash and error messages */
+.account-container .flash-message {
+  background: #eafaf1;
+  color: #218838;
+  border: 1px solid #b7e4c7;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.2rem;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.account-container .error {
+  background: #fdeaea;
+  color: #c0392b;
+  border: 1px solid #f5c6cb;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.2rem;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* Password requirements text */
+.account-container small {
+  display: block;
+  margin-top: -0.8rem;
+  margin-bottom: 1.2rem;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  .account-container {
+    padding: 1rem;
+  }
+  .account-container form {
+    padding: 1rem 0.5rem;
+  }
+}
+
+

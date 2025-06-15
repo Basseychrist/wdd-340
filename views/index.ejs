@@ -1,7 +1,14 @@
 <div class="hero-container">
   <section id="hero-header">
     <h1>Welcome to CSE Motors!</h1>
-    <%- messages() %>
+
+    <% if (messages.info) { %>
+      <div class="flash-message info"><%= messages.info %></div>
+    <% } %>
+    <div class="flash-message">
+      <%- messages() %>
+    </div>
+    
 
   <section id="hero">
     <img

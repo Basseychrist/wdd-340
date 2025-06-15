@@ -11,14 +11,13 @@ const pool = require("./database/");
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const env = require("dotenv").config();
-const bodyParser = require("body-parser"); // <-- Add this line
 const app = express();
 const inventoryRoute = require("./routes/inventoryRoute");
-const accountRoute = require("./routes/accountRoute"); // <-- Add this line
-// const static = require("./routes/static");
+const accountRoutes = require("./routes/accountRoute");
 const utilities = require("./utilities");
 const baseController = require("./controllers/baseController");
 const errorRoute = require("./routes/errorRoute");
+const flash = require("connect-flash");
 
 /* ***********************
  * Middleware
@@ -36,12 +35,7 @@ app.use(
   })
 );
 
-// Body Parser Middleware
-app.use(bodyParser.json()); // Parse JSON bodies
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
-// Express Messages Middleware
-app.use(require("connect-flash")());
+app.use(flash());
 app.use(function (req, res, next) {
   res.locals.messages = require("express-messages")(req, res);
   next();
@@ -49,9 +43,13 @@ app.use(function (req, res, next) {
 
 app.use(cookieParser());
 app.use(utilities.checkJWTToken);
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 /* ***********************
  * View Engine and Templates
@@ -69,7 +67,7 @@ app.get("/", baseController.buildHome);
 // Inventory routes
 app.use("/inv", inventoryRoute);
 // Account routes
-app.use("/account", accountRoute);
+app.use("/account", accountRoutes);
 app.use("/", errorRoute);
 
 // File Not Found Route - must be last route in list
@@ -84,22 +82,24 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  res.render("errors/error", {
+  res.status(err.status || 500).render("errors/error", {
     title: err.status || "Server Error",
     message: err.message,
-    nav,
+    notice: req.flash("notice"),
+    error: process.env.NODE_ENV === "development" ? err : {},
+    nav, // Always pass nav!
   });
 });
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500);
-  res.render("errors/error", {
-    message: err.message,
-    error: process.env.NODE_ENV === "development" ? err : {},
-    title: "Server Error",
-  });
-});
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(err.status || 500);
+//   res.render("errors/error", {
+//     message: err.message,
+//     error: process.env.NODE_ENV === "development" ? err : {},
+//     title: "Server Error",
+//   });
+// });
 
 /* ***********************
  * Local Server Information

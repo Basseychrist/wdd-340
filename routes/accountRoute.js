@@ -1,10 +1,9 @@
-const regValidate = require("../utilities/account-validation");
 const express = require("express");
 const router = express.Router();
 const utilities = require("../utilities");
+const regValidate = require("../utilities/account-validation");
 const accountController = require("../controllers/accountController");
-
-console.log("accountController.buildAccount:", accountController.buildAccount);
+// router.post("/update", accountController.updateAccount);
 
 /* ****************************************
  *  Deliver login view
@@ -14,6 +13,7 @@ async function buildLogin(req, res, next) {
   res.render("account/login", {
     title: "Login",
     nav,
+    notice: req.flash("notice"), // <-- Add this line
   });
 }
 
@@ -45,9 +45,47 @@ router.post(
 router.post(
   "/login",
   regValidate.loginRules(),
-  regValidate.checkLoginData, // <-- CORRECT
+  regValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
 );
 
-// Export the router
+// GET: Show update account form
+router.get(
+  "/update/:account_id",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildUpdateAccount)
+);
+
+// POST: Update account info
+router.post(
+  "/update/:account_id",
+  utilities.checkLogin,
+  regValidate.updateAccountRules(), // server-side validation
+  regValidate.checkUpdateAccountData, // custom middleware to check email uniqueness
+  utilities.handleErrors(accountController.updateAccount)
+);
+
+// POST: Change password
+router.post(
+  "/update-password/:account_id",
+  utilities.checkLogin,
+  regValidate.passwordRules(), // server-side password validation
+  regValidate.checkPasswordData,
+  utilities.handleErrors(accountController.changePassword)
+);
+
+// Logout route
+router.get("/logout", (req, res) => {
+  req.flash("info", "You have been logged out.");
+  res.clearCookie("jwt");
+  res.clearCookie("token"); // just in case
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Session destruction error:", err);
+      // Optionally, flash an error message here
+    }
+    res.redirect("/");
+  });
+});
+
 module.exports = router;
