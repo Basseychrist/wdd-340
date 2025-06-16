@@ -752,7 +752,7 @@ form#addClassificationForm button[type="submit"]:hover {
   font-size: 2em;
 }
 
-.inventory-management-container p {
+.inventory-management-container p, .delete-classifications-title {
   text-align: center;
   color: #555;
   margin-bottom: 18px;

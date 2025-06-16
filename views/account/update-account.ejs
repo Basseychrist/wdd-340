@@ -14,7 +14,7 @@
     id="updateAccountForm"
     novalidate
   >
-    <input type="hidden" name="account_id" value="<%= user.account_id %>" />
+    <input type="hidden" name="account_id" value="<%= user.account_id %>" >
 
     <label for="account_firstname">First Name</label>
     <input
@@ -23,7 +23,7 @@
       name="account_firstname"
       required
       value="<%= typeof account_firstname !== 'undefined' ? account_firstname : user.account_firstname %>"
-    />
+    >
 
     <label for="account_lastname">Last Name</label>
     <input
@@ -32,7 +32,7 @@
       name="account_lastname"
       required
       value="<%= typeof account_lastname !== 'undefined' ? account_lastname : user.account_lastname %>"
-    />
+    >
 
     <label for="account_email">Email</label>
     <input
@@ -41,7 +41,7 @@
       name="account_email"
       required
       value="<%= typeof account_email !== 'undefined' ? account_email : user.account_email %>"
-    />
+    >
 
     <button type="submit">Update Account</button>
   </form>
@@ -53,7 +53,7 @@
     id="changePasswordForm"
     novalidate
   >
-    <input type="hidden" name="account_id" value="<%= user.account_id %>" />
+    <input type="hidden" name="account_id" value="<%= user.account_id %>" >
 
     <label for="account_password">New Password</label>
     <input
@@ -62,7 +62,7 @@
       name="account_password"
       required
       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{12,}$"
-    />
+    >
     <small>
       Password must be at least 12 characters and include uppercase, lowercase,
       number, and special character.

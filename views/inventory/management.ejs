@@ -1,37 +1,39 @@
-<main>
-  <h1>Inventory Management</h1>
+<!-- Remove <main> if your layout already has it -->
+<h1>Inventory Management</h1>
 
-  <div class="management-links">
-    <a href="/inv/add-classification">Add New Classification</a>
-    <a href="/inv/add-inventory">Add New Vehicle</a>
-  </div>
+<div class="management-links">
+  <a href="/inv/add-classification">Add New Classification</a>
+  <a href="/inv/add-inventory">Add New Vehicle</a>
+</div>
 
-  <h2 id="manage-inv">Manage Inventory</h2>
-  <p>
-    Select a classification from the list to see the items belonging to the
-    classification.
-  </p>
+<h2 id="manage-inv">Manage Inventory</h2>
+<p>
+  Select a classification from the list to see the items belonging to the
+  classification.
+</p>
 
-  <!-- EJS code block to display the classification select list -->
-  <%- classificationSelect %>
+<!-- EJS code block to display the classification select list -->
+<%- classificationSelect %>
 
-  <!-- Empty table for inventory items -->
-  <table id="inventoryDisplay"></table>
+<!-- Empty table for inventory items -->
+<table id="inventoryDisplay"></table>
 
-  <noscript>JavaScript must be enabled to use this page.</noscript>
-</main>
+<noscript>JavaScript must be enabled to use this page.</noscript>
 
 <!-- Link to your inventory.js file -->
 <script src="/js/inventory.js"></script>
+
+<h2 class="delete-classifications-title">Delete Classifications</h2>
 <ul class="delete-classifications-list">
-  <h2>Delete Classifications</h2>
-  <% if (classifications && classifications.length) { %> <%
-  classifications.forEach(function(classification) { %>
-  <li>
-    <%= classification.classification_name %>
-    <a href="/inv/delete-classification/<%= classification.classification_id %>"
-      >Delete</a
-    >
-  </li>
-  <% }) %> <% } %>
+  <% if (classifications && classifications.length) { %>
+    <% classifications.forEach(function(classification) { %>
+      <li>
+        <%= classification.classification_name %>
+        <a href="/inv/delete-classification/<%= classification.classification_id %>"
+          >Delete</a
+        >
+      </li>
+    <% }) %>
+  <% } %>
 </ul>
+

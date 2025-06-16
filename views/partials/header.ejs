@@ -15,7 +15,7 @@
   <ul>
     <% if (user) { %>
     <li>
-      <a href="/account">
+      <a href="#">
         Welcome <% if (user.account_type) { %> <%=
         user.account_type.charAt(0).toUpperCase() + user.account_type.slice(1)
         %> <% } else { %> User <% } %> <% if (user.account_firstname) { %> , <%=
